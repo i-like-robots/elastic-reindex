@@ -2,6 +2,8 @@
 
 A simple command line tool to reindex your Elasticsearch data using the [scroll][scroll] and [bulk][bulk] APIs.
 
+This tool has been influenced by the [Elasticsearch reindex tool][reindex-tool] and others. The key feature of this tool is its ability to retry the scroll and bulk update steps if either should fail. 
+
 ## Installation
 
 ```sh
@@ -69,5 +71,6 @@ function processBatch (range) {
 })()
 ```
 
+[reindex-tool]: https://www.npmjs.com/package/elasticsearch-reindex
 [scroll]: https://www.elastic.co/guide/en/elasticsearch/guide/current/scroll.html
 [bulk]: https://www.elastic.co/guide/en/elasticsearch/guide/current/bulk.html
