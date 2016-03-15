@@ -1,0 +1,19 @@
+{
+  "name": "elastic-reindex",
+  "version": "1.0.0",
+  "description": "A simple command line tool to reindex your Elasticsearch data using the scroll and bulk APIs",
+  "main": "lib/runner.js",
+  "bin": "lib/cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Hinchliffe",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.7.1",
+    "commander": "^2.9.0",
+    "elasticsearch": "^10.1.3",
+    "http-aws-es": "^1.1.3",
+    "progress": "^1.1.8"
+  }
+}
