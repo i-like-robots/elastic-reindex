@@ -1,7 +1,7 @@
 {
   "name": "elastic-reindex",
   "version": "1.1.0",
-  "description": "A simple command line tool to reindex your Elasticsearch data using the scroll and bulk APIs",
+  "description": "A simple tool to reindex your Elasticsearch data using the scroll and bulk APIs",
   "main": "lib/runner.js",
   "bin": "lib/cli.js",
   "scripts": {

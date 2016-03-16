@@ -1,8 +1,8 @@
 # Elastic Reindex
 
-A simple command line tool to reindex your Elasticsearch data using the [scroll][scroll] and [bulk][bulk] APIs.
+A simple tool to reindex your Elasticsearch data using the [scroll][scroll] and [bulk][bulk] APIs.
 
-This tool has been influenced by the [Elasticsearch reindex tool][reindex-tool] and others. The key feature of this tool is its ability to retry the scroll and bulk update steps if either should fail. 
+This tool has been influenced by the [Elasticsearch reindex tool][tool] and others. The primary motivation for creating a new tool was the addition of the ability to retry the scroll and bulk update steps if either should fail. 
 
 ## Installation
 
@@ -10,7 +10,11 @@ This tool has been influenced by the [Elasticsearch reindex tool][reindex-tool] 
 npm install -g elastic-reindex
 ```
 
-## Basic usage
+## Usage
+
+The tool offers both a simple command line interface and module for more advanced use cases.
+
+### Simple CLI
 
 To view all options run `elastic-reindex --help`
 
@@ -24,7 +28,7 @@ If you use the AWS Elasticsearch service you can authorise the client by providi
 elastic-reindex -f http://127.0.0.1:9200/old_index/type -t http://127.0.0.1:9200/new_index/type --access_key 123 --secret_key 456 --region eu-west-1
 ```
 
-## Advanced usage
+### Advanced use cases
 
 For larger indexes it may be sensible to restrict your migration by query. This can be done by passing the `--query_body` parameter and a JSON object.
 
@@ -71,6 +75,6 @@ function processBatch (range) {
 })()
 ```
 
-[reindex-tool]: https://www.npmjs.com/package/elasticsearch-reindex
+[tool]: https://www.npmjs.com/package/elasticsearch-reindex
 [scroll]: https://www.elastic.co/guide/en/elasticsearch/guide/current/scroll.html
 [bulk]: https://www.elastic.co/guide/en/elasticsearch/guide/current/bulk.html
