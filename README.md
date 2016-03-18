@@ -28,9 +28,15 @@ If you use the AWS Elasticsearch service you can authorise the client by providi
 elastic-reindex -f http://127.0.0.1:9200/old_index/type -t http://127.0.0.1:9200/new_index/type --access_key 123 --secret_key 456 --region eu-west-1
 ```
 
+And you can also configure the number of retries and length of time to store each scroll:
+
+```sh
+elastic-reindex -f http://127.0.0.1:9200/old_index/type -t http://127.0.0.1:9200/new_index/type -r 5 -d 180s
+```
+
 ### Advanced use cases
 
-For larger indexes it may be sensible to restrict your migration by query. This can be done by passing the `--query_body` parameter and a JSON object.
+For larger indexes it may be sensible to restrict your migration by query. This can be done by passing the `--query_body` parameter and a stringified JSON object.
 
 Alternatively, you could include the runner into your code and create a custom reindex script. For example when working with large indexes it can be useful to split reindexing into batches:
 
@@ -46,31 +52,31 @@ const batches = [
   { gte: '2016-07-01', lte: '2016-12-31' }
 ]
 
-function processBatch (range) {
+function processBatch (daterange) {
   const runner = new Runner({
     from: 'http://127.0.0.1:9200/old_index/type',
     to: 'http://127.0.0.1:9200/new_index/type',
-    query_body: { query: { range: { publishedDate: range } } }
+    query_body: { query: { range: { publishedDate: daterange } } }
   })
 
   return runner.fetchInitial()
 }
 
-(function stepBatch () {
-  const range = batches.shift()
+(function nextBatch () {
+  const batch = batches.shift()
 
-  console.log(`Working on batch ${range.gte} => ${range.lte}`)
+  console.log(`Working on batch ${batch.gte} => ${batch.lte}`)
 
-  processBatch(range)
+  processBatch(batch)
     .then(() => {
-      console.log(`Batch ${range.gte} => ${range.lte} complete`)
+      console.log(`Batch ${batch.gte} => ${batch.lte} complete`)
 
       if (batches.length) {
-        stepBatch()
+        nextBatch()
       }
     })
     .catch((err) => {
-      console.error(`Failed on batch ${range.gte} => ${range.lte}`, err)
+      console.error(`Failed on batch ${batch.gte} => ${batch.lte}`, err)
     })
 })()
 ```
