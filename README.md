@@ -1,3 +1,5 @@
+⚠️ **This tool is no longer maintained** ⚠️
+
 # Elastic Reindex
 
 A simple tool to reindex your Elasticsearch data using the [scroll][scroll] and [bulk][bulk] APIs.
